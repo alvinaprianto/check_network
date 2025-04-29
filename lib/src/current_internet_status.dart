@@ -45,8 +45,8 @@ class CurrentInternetStatus {
   /// If the [ConnectivityResult] is [ConnectivityResult.wifi] or
   /// [ConnectivityResult.mobile], we will check if
   /// the internet is available or not.
-  Future<void> _handleConnectivityChange(
-    ConnectivityResult connectivityResult,
+  void _handleConnectivityChange(
+    List<ConnectivityResult> connectivityResult,
   ) async {
     /// cancel the timer if it is running
     _timer?.cancel();
@@ -54,8 +54,8 @@ class CurrentInternetStatus {
     //  _currentInternetStatus.add(InternetStatus.checking);
     /// Here we check if the [ConnectivityResult] is
     ///  [ConnectivityResult.wifi] or [ConnectivityResult.mobile].
-    final isDataOn = connectivityResult == ConnectivityResult.wifi ||
-        connectivityResult == ConnectivityResult.mobile;
+    final isDataOn = connectivityResult.contains(ConnectivityResult.wifi) ||
+        connectivityResult.contains(ConnectivityResult.mobile);
     if (isDataOn) {
       final isDeviceConnected = await _checkInternet.hasConnection;
       if (isDeviceConnected) {
